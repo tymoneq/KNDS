@@ -39,11 +39,12 @@ vector<set<bestPath, cmp>> BestPath;
 // update Pheromone
 void updatePheromone(vector<pathUpdate> &pUpdate, int n)
 {
-    map<pair<int, int>, double> pheromoneUpt;
+    // map<pair<int, int>, double> pheromoneUpt;
+    vector<vector<double>> pheromoneUpt(n + 1, vector<double>(n + 1, 0));
 
     for (auto &path : pUpdate)
         for (int i = 0; i < path.path.size() - 1; i++)
-            pheromoneUpt[{path.path[i], path.path[i + 1]}] += (Q / path.cost);
+            pheromoneUpt[path.path[i]][path.path[i + 1]] += (Q / path.cost);
 
     for (int i = 1; i <= n; i++)
         for (int j = 1; j <= n; j++)
@@ -51,7 +52,7 @@ void updatePheromone(vector<pathUpdate> &pUpdate, int n)
             if (i == j)
                 continue;
 
-            Pheromone[i][j] = (1 - Q) * Pheromone[i][j] + pheromoneUpt[{i, j}];
+            Pheromone[i][j] = (1 - Q) * Pheromone[i][j] + pheromoneUpt[i][j];
         }
 }
 
@@ -156,3 +157,4 @@ int main()
     return 0;
 }
 // to do wielowątkowość
+// zamień map na hash map
