@@ -39,7 +39,7 @@ vector<set<bestPath, cmp>> BestPath;
 // update Pheromone
 void updatePheromone(vector<pathUpdate> &pUpdate, int n)
 {
-    // map<pair<int, int>, double> pheromoneUpt;
+
     vector<vector<double>> pheromoneUpt(n + 1, vector<double>(n + 1, 0));
 
     for (auto &path : pUpdate)
@@ -157,4 +157,3 @@ int main()
     return 0;
 }
 // to do wielowątkowość
-// zamień map na hash map
