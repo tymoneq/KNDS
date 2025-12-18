@@ -1,6 +1,6 @@
 import random
 
-n = 100
+n = 500
 m = n * (n - 1)
 
 print(n, m)
