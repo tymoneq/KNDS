@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -shared -flto -Wl,--dependency-file=CMakeFiles/antColony.dir/link.d  -o antColony.cpython-313-x86_64-linux-gnu.so CMakeFiles/antColony.dir/_pybind.cpp.o CMakeFiles/antColony.dir/src/antColony.cpp.o

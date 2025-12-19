@@ -1,0 +1,8 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/tymon/coding/WUT/KNDS/build/cmake_install.cmake",
+		"/home/tymon/coding/WUT/KNDS/build/_deps/pybind11-build/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
