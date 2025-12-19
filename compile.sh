@@ -1,1 +1,0 @@
-g++ -std=c++17 -Wshadow -Wall -o a.exe -O3 main.cpp src/antColony.cpp 

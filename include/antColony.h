@@ -46,13 +46,13 @@ private:
 
 public:
     void run();
-    void updatePheromone(vector<pathUpdate> &pUpdate);
-    void updateBestPath();
+    void inline updatePheromone(vector<pathUpdate> &pUpdate);
+    void inline updateBestPath();
     void inline nextVertex(vector<int> &path, int v, set<int> &vis, double &cost);
-    pathUpdate simulateAnt(int currentStart);
-    void prepare();
-    void readData();
-    void findBestScore();
+    pathUpdate inline simulateAnt(int currentStart);
+    void inline prepare();
+    void inline readData();
+    void inline findBestScore();
 };
 
 #endif

@@ -1,7 +1,8 @@
 import random
 
-n = 500
-m = n * (n - 1)
+
+n = int(input())
+m = n * (n - 1) // 2
 
 print(n, m)
 

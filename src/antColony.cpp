@@ -7,7 +7,7 @@ void AntColony::run()
     findBestScore();
 }
 
-void AntColony::readData()
+void inline AntColony::readData()
 {
     cin >> n >> m;
     prepare();
@@ -23,7 +23,7 @@ void AntColony::readData()
     }
 }
 
-void AntColony::prepare()
+void inline AntColony::prepare()
 {
     dim = n + 1;
     Graph.resize(n + 1);
@@ -34,7 +34,7 @@ void AntColony::prepare()
     for (int i = 1; i <= n; i++)
         Pheromone[i].resize(n + 1, 1);
 }
-void AntColony::updatePheromone(vector<pathUpdate> &pUpdate)
+void inline AntColony::updatePheromone(vector<pathUpdate> &pUpdate)
 {
 
     for (auto &path : pUpdate)
@@ -54,16 +54,16 @@ void AntColony::updatePheromone(vector<pathUpdate> &pUpdate)
 }
 
 // updating attractiveness of every edge for every node
-void AntColony::updateBestPath()
+void inline AntColony::updateBestPath()
 {
     for (int i = 1; i <= n; i++)
     {
         BestPath[i].clear();
         double sumOfProbability = 0;
-        for (auto e : Graph[i])
+        for (const auto &e : Graph[i])
             sumOfProbability += (double(Q / e.weight)) * Pheromone[i][e.to];
 
-        for (auto e : Graph[i])
+        for (const auto &e : Graph[i])
         {
             double currentPathAttractiveness = (double(Q / e.weight)) * Pheromone[i][e.to];
             currentPathAttractiveness /= sumOfProbability;
@@ -80,7 +80,7 @@ void inline AntColony::nextVertex(vector<int> &path, int v, set<int> &vis, doubl
     if (path.size() == n + 1)
         return;
 
-    for (auto w : BestPath[v])
+    for (const auto &w : BestPath[v])
     {
         if (vis.count(w.to) && (path.size() != n || (path.size() == n && w.to != path[0])))
             continue;
@@ -90,7 +90,7 @@ void inline AntColony::nextVertex(vector<int> &path, int v, set<int> &vis, doubl
     }
 }
 // simulate ant
-pathUpdate AntColony::simulateAnt(int currentStart)
+pathUpdate inline AntColony::simulateAnt(int currentStart)
 {
     vector<int> path;
     set<int> vis;
@@ -100,7 +100,7 @@ pathUpdate AntColony::simulateAnt(int currentStart)
     return {cost, path};
 }
 
-void AntColony::findBestScore()
+void inline AntColony::findBestScore()
 {
     pathUpdate bestAns = {inf, {}};
     while (iterations--)
@@ -113,14 +113,14 @@ void AntColony::findBestScore()
         // update Pheromone
         updatePheromone(pUpdate);
 
-        for (auto &el : pUpdate)
+        for (const auto &el : pUpdate)
             if (el.cost < bestAns.cost)
                 bestAns = el;
     }
 
     cout << "Best cost = " << bestAns.cost << "\n";
     cout << "Path: " << bestAns.path.size() << "\n";
-    for (int w : bestAns.path)
+    for (int &w : bestAns.path)
         cout << w << ' ';
 
     cout << "\n";

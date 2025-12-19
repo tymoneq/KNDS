@@ -1,0 +1,1 @@
+g++ -std=c++17  -o ant -Ofast -fprofile-generate -march=native -flto ../main.cpp ../src/antColony.cpp 
