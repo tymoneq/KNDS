@@ -10,4 +10,4 @@ time ./ant < test.in > test.out
 ./lowerBound < test.in > lowerBound.out
 
 cat lowerBound.out
-cat test.out
+head -n 1 test.out
