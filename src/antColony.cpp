@@ -1,6 +1,7 @@
 #include "../include/antColony.h"
 #include <iostream>
-
+random_device rd;
+mt19937 gen(rd());
 void AntColony::run()
 {
     readData();
@@ -30,6 +31,7 @@ void inline AntColony::prepare()
     Pheromone.resize(n + 1);
     BestPath.resize(n + 1);
     pheromoneUpt.resize(dim * dim + 5, 0);
+    TotalProbability.resize(n + 1);
 
     for (int i = 1; i <= n; i++)
         Pheromone[i].resize(n + 1, 1);
@@ -63,6 +65,8 @@ void inline AntColony::updateBestPath()
         for (const auto &e : Graph[i])
             sumOfProbability += (double(Q / e.weight)) * Pheromone[i][e.to];
 
+        TotalProbability[i] = sumOfProbability;
+
         for (const auto &e : Graph[i])
         {
             double currentPathAttractiveness = (double(Q / e.weight)) * Pheromone[i][e.to];
@@ -77,15 +81,28 @@ void inline AntColony::nextVertex(vector<int> &path, int v, set<int> &vis, doubl
 {
     path.push_back(v);
     vis.insert(v);
-    if (path.size() == n + 1)
+    if (path.size() == n)
+    {
+        path.push_back(path[0]);
+        for (const auto &w : BestPath[v])
+            if (w.to == path[0])
+                cost += w.weight;
         return;
+    }
+
+    uniform_real_distribution<> dis(0, TotalProbability[v]);
+    double p = dis(gen);
 
     for (const auto &w : BestPath[v])
     {
-        if (vis.count(w.to) && (path.size() != n || (path.size() == n && w.to != path[0])))
+        if (vis.count(w.to))
             continue;
-        cost += w.weight;
-        nextVertex(path, w.to, vis, cost);
+        p -= w.probability;
+        if (p <= 0)
+        {
+            cost += w.weight;
+            nextVertex(path, w.to, vis, cost);
+        }
         break;
     }
 }

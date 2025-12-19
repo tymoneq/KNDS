@@ -3,7 +3,9 @@
 
 #include <vector>
 #include <set>
+#include <random>
 using namespace std;
+
 struct edge
 {
     int to;
@@ -35,7 +37,7 @@ class AntColony
 private:
     const double Q = 1;
     const double inf = 1e9 + 7;
-    int iterations = 100;
+    int iterations = 1000;
     int dim;
     int n, m;
 
@@ -43,6 +45,7 @@ private:
     vector<vector<double>> Pheromone;
     vector<set<bestPath, cmp>> BestPath;
     vector<double> pheromoneUpt;
+    vector<double> TotalProbability;
 
 public:
     void run();
