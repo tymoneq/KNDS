@@ -1,4 +1,4 @@
-import AntColony            
+import antColony            
 
-ac = AntColony.AntColony()
+ac = antColony.AntColony()
 ac.solve()
